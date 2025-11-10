@@ -105,6 +105,12 @@ typedef struct s_map
 	struct	s_map *next;
 }	t_map;
 
+typedef struct s_color
+{
+	int Floor[3];
+	int Ceiling[3];
+}	t_color;
+
 typedef  struct  s_line_draw
 {
 	int  x; //the x coordinate of line relative to screen
@@ -125,6 +131,8 @@ typedef struct s_control
 	t_player player;
 	t_node	*node;
 	t_map	*map;
+	t_color		color;
+	char		*texture[4];
 	t_dir			dir;
 	t_plane			plane;
 	double			camerax;

@@ -23,20 +23,15 @@ int main(int ac, char *av[])
 {
     (void) ac;
     t_control *main_control;
-    int i = 0;
 
     main_control = control_memo();
     if (check_argm(ac))
         printer_and_free("Invalid number of arguments");
     validit_filename(av[1], "cub");
-    //change_map_to_data(av[1]);
+    change_map_to_data(av[1]);
+    validit_texture_and_color();
     read_and_parse_file(av[1]);
     create_map_grid(main_control);
-    while(main_control->map_grid && main_control->map_grid[i])
-    {
-        printf("%s\n", main_control->map_grid[i]);
-        i++;
-    }
     validate_map_characters(main_control);
     validate_map_enclosure(main_control);
     make_dir(main_control);
