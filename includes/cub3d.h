@@ -4,6 +4,8 @@
 #define BUFFER_SIZE 10
 #define W_WIDTH 300
 #define W_HIGHT 600
+#define textureWidth 64
+#define textureHeight 64
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -149,6 +151,17 @@ typedef struct s_control
 	int		floor_color;
 	int		ceiling_color;
 	int		elements_found;
+
+
+	double	lineHeight;
+	double	perpWallDist;
+	int		drawstart;
+	int		drawend;
+	double	wallX;
+	int		texx;
+	double	steP;
+	double	texPos;
+
 }	t_control;
 
 // typedef struct s_control
