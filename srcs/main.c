@@ -39,7 +39,10 @@ int main(int ac, char *av[])
 	calculate_ray_to_wall(main_control);
 
     main_control->mlx_ptr = mlx_init();
-    main_control->mlx_win = mlx_new_window(main_control->mlx_ptr, 1920, 1080, "CUB3D");
+    main_control->mlx_win = mlx_new_window(main_control->mlx_ptr, WIDTH, HEIGHT, "CUB3D");
+	main_control->img_ptr = mlx_new_image(main_control->mlx_ptr, WIDTH, HEIGHT);
+	main_control->data = mlx_get_data_addr(main_control->img_ptr, &main_control->bits_per_pixel, &main_control->line_length, &main_control->endian);
+
 	//t_map *map;
 	// while(main_control->map_grid && main_control->map_grid[i])
 	// {

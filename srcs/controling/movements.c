@@ -11,8 +11,8 @@ void move_player_forward(t_control *main)
     double new_x;
     double new_y;
 
-    x_step = main->player.x * MOVE_SPEED;
-    y_step = main->plane.y * MOVE_SPEED;
+    x_step = main->dir.x * MOVE_SPEED;
+    y_step = main->dir.y * MOVE_SPEED;
 
     new_x = main->dir.x + x_step;
     new_y = main->dir.y + y_step;
@@ -37,8 +37,8 @@ void move_player_backward(t_control *main)
     x_step = main->dir.x * MOVE_SPEED;
     y_step = main->dir.y * MOVE_SPEED;
 
-    new_x = main->player.x + x_step;
-    new_y = main->player.y + y_step;
+    new_x = main->player.x - x_step;
+    new_y = main->player.y - y_step;
     if(main->map_grid[(int)main->player.y][(int)new_x] != '1')
     {
         main->player.x = new_x;
@@ -81,8 +81,8 @@ void move_player_left(t_control *main)
     x_step = main->plane.x * MOVE_SPEED;
     y_step = main->plane.y * MOVE_SPEED;
 
-    new_x = main->player.x + x_step;
-    new_y = main->player.y + y_step;
+    new_x = main->player.x - x_step;
+    new_y = main->player.y - y_step;
     if (main->map_grid[(int)main->player.y][(int)new_x] != '1')
     {
         main->player.x = new_x;

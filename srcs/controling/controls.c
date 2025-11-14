@@ -45,21 +45,6 @@ int close_game(t_control *control)
     return(0);
 }
 
-// static int key_handler(int keycode, t_control *control)
-// {
-//     if(keycode == 65307)
-//         close_game(control);
-//     else if(keycode == 119)
-//         printf("W is pressed: %d\n", keycode);
-//     else if(keycode == 97)
-//         printf("A is pressed: %d\n", keycode);
-//     else if(keycode == 115)
-//         printf("S is pressed: %d\n", keycode);
-//     else if(keycode == 100)
-//         printf("D is pressed: %d\n", keycode);
-//     return 0;
-// }
-
 
 int	key_press_handler(int keycode, t_control *main)
 {
@@ -134,11 +119,18 @@ int key_release_handler(int keycode, t_control *main)
 	return (0);
 }
 
+int	master_loop(t_control *main)
+{
+    update_player_movement(main);
+    return (0);
+}
+
 void setup_hooks(t_control *control)
 {
     mlx_hook(control->mlx_win, 17, 0, close_game, control);
     mlx_hook(control->mlx_win, 2, 1L<<0, key_press_handler, control);
-	mlx_hook(control->mlx_win, 1, 1L<<1, key_release_handler, control);
+	mlx_hook(control->mlx_win, 3, 1L<<1, key_release_handler, control);
+	mlx_loop_hook(control->mlx_ptr, master_loop, control);
 }
 
 

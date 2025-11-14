@@ -7,6 +7,9 @@
 #define textureWidth 64
 #define textureHeight 64
 
+#define WIDTH 1920
+#define HEIGHT 1080
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -80,7 +83,8 @@ typedef struct s_texture
 {
     void    *img_ptr;
     char    *addr;
-    int     bit_for_pixel;
+	char	*data;
+    int     bit_per_pixel;
     int     line_length;
     int     endian;
     int     width;
@@ -144,6 +148,11 @@ typedef struct s_control
 	t_step			step;
 	t_side_dist		side_dist;
 
+	t_texture north_tex;
+	t_texture south_tex;
+	t_texture west_tex;
+	t_texture east_tex;
+
 	char	*no_texture_path;
 	char	*so_texture_path;
 	char	*we_texture_path;
@@ -152,6 +161,11 @@ typedef struct s_control
 	int		ceiling_color;
 	int		elements_found;
 
+	void	*img_ptr;
+	char	*data;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 
 	double	lineHeight;
 	double	perpWallDist;
