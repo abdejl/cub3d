@@ -196,8 +196,6 @@ void	validit_texture_and_color()
 				printer_and_free("Invalid Data");
 			if(color == 1)
 			{
-				if(!((e == 1 && n == 1 && w == 1 && so == 1)|| (e == 0 && n == 0 && w == 0 && so == 0)))
-					printer_and_free("Invalid texture format");
 				if(s[i] == 'F')
 				{
 					i++;
@@ -217,8 +215,6 @@ void	validit_texture_and_color()
 			}
 			else if(texture == 1)
 			{
-				if(!((f == 1 && c == 1) || (f == 0 && c == 0)))
-					printer_and_free("Invalid color format");
 				if(s[i] == 'N')
 				{
 					i += 2;
