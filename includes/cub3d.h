@@ -2,10 +2,8 @@
 #define CUB3D_H
 
 #define BUFFER_SIZE 10
-#define W_WIDTH 300
-#define W_HIGHT 600
-#define textureWidth 64
-#define textureHeight 64
+#define W_WIDTH 1920
+#define W_HIGHT 1080
 
 #define WIDTH 1920
 #define HEIGHT 1080
@@ -16,18 +14,12 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <math.h>
-//#include "/usr/include/minilibx-linux/mlx.h"
-
 #include "../mlx_linux/mlx.h"
-
-//#include "/home/abjellal/Desktop/CUP3D/get_next_line/get_next_line.h"
-
-#include <math.h>
 
 typedef struct s_dir
 {
-	int x;
-	int y;
+	double x;
+	double y;
 }	t_dir;
 
 
@@ -83,8 +75,8 @@ typedef struct s_texture
 {
     void    *img_ptr;
     char    *addr;
-	char	*data;
-    int     bit_per_pixel;
+	char 	*data;
+    int     bits_per_pixel;
     int     line_length;
     int     endian;
     int     width;
@@ -117,16 +109,6 @@ typedef struct s_color
 	int Ceiling[3];
 }	t_color;
 
-typedef  struct  s_line_draw
-{
-	int  x; //the x coordinate of line relative to screen
-	int  y; //the current pixel index of the line (along y axis)
-	int  y0; //y start index of drawing texture
-	int  y1; //y end index of drawing texture
-	int  tex_x; //x coordinate of texture to draw
-	int  tex_y; //y coordinate of texture to draw
-} t_line_draw;
-
 
 typedef struct s_control
 {
@@ -147,11 +129,12 @@ typedef struct s_control
 	t_delta_dist	delta_dist;
 	t_step			step;
 	t_side_dist		side_dist;
-
 	t_texture north_tex;
 	t_texture south_tex;
 	t_texture west_tex;
 	t_texture east_tex;
+	int *width;
+	int *height;
 
 	char	*no_texture_path;
 	char	*so_texture_path;
@@ -160,41 +143,22 @@ typedef struct s_control
 	int		floor_color;
 	int		ceiling_color;
 	int		elements_found;
+	int drawstart;
+	int drawend;
+	double  wallX;
+    int     texx;
+    double  steP;
+    double  texPos;
+	double  lineHeight;
+    double  perpWallDist;
 
 	void	*img_ptr;
 	char	*data;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-
-	double	lineHeight;
-	double	perpWallDist;
-	int		drawstart;
-	int		drawend;
-	double	wallX;
-	int		texx;
-	double	steP;
-	double	texPos;
-
 }	t_control;
 
-// typedef struct s_control
-// {
-// 	int	width;
-// 	int	height;
-// 	char			**map_grid;
-// 	t_player		player;
-// 	t_node			*node;
-// 	t_map			*map;
-// 	t_dir			dir;
-// 	t_plane			plane;
-// 	double			camerax;
-// 	t_raydir		raydir;
-// 	t_ray_position	Map;
-// 	t_delta_dist	delta_dist;
-// 	t_step			step;
-// 	t_side_dist		side_dist;
-// }	t_control;
 /*--------------------FREE------------------------*/
 
 void		free_all();
@@ -211,6 +175,7 @@ int		ft_strlen(const char *s);
 int		ft_strlcpy(char *dst, const char *src, size_t size);
 int		ft_atoi(const char *str);
 char	*ft_strdup(const char *s);
+char	**ft_split(const char *s, char c);
 
 /*----------------------------------*/
 
@@ -219,13 +184,10 @@ int			check_argm(int ac);
 void		printer_and_free(char *s);
 void		validit_filename(char *s, const char *sc);
 void		add_node(char *data);
-void		change_map_to_data(char *file_nmae);
 char 		*get_next_line(int fd);
-void		validate_map_walls(t_control *main);
 void		validate_map_characters(t_control *main);
 void		validate_map_enclosure(t_control *main);
 char		*strip_newline(char *line);
-void		validit_texture_and_color();
 void		create_map_grid(t_control *main);
 void		read_and_parse_file(char *file_name);
 void		calculate_ray_to_wall(t_control *main_control);
@@ -234,5 +196,12 @@ void		make_plane(t_control *main_control);
 void		calculate_ray_direction(t_control *main_control);
 void		setup_hooks(t_control *control);
 void		update_player_movement(t_control *main);
+void		load_texture(t_control *main);
+void		paint_line(t_control *main, int x, int y_start, int y_end, int color);
+int			get_texture_pixel_color(t_texture *texture, int x, int y);
+void		pixel_on_img(t_control *main, int x, int y, int color);
+void		paint_texture_line(t_control *main, int x, int draw_start, int draw_end, t_texture *tex);
+void		mlx(t_control *main_control);
+void		parsing(t_control *main_control, char av[]);
 
 #endif

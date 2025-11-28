@@ -19,12 +19,9 @@ void	validate_map_characters(t_control *main)
 
 	y = 0;
 	player_count = 0;
-	//int i = 0;
 	while (main->map_grid && main->map_grid[y])
 	{
 		x = 0;
-		// while(main->map_grid[y][x] != '0' || main->map_grid[y][x] != '1')
-		// 	i++;
 		while (main->map_grid[y][x])
 		{
 			if (!is_valid_char(main->map_grid[y][x]))

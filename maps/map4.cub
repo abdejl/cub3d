@@ -1,6 +1,14 @@
+F 34,139,34
+C 0,191,255
+
+NO /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
+SO /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
+WE /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
+EA /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
+
 111111111111
 101000000001
-10F000000001
-10100EF1F111
+100000000001
+10100E010111
 100000000001
 111111111111

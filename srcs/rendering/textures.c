@@ -7,11 +7,16 @@ void load_texture(t_control *main)
     main->north_tex.img_ptr = mlx_xpm_file_to_image(main->mlx_ptr, main->no_texture_path, &main->north_tex.width, &main->north_tex.height);
     main->south_tex.img_ptr = mlx_xpm_file_to_image(main->mlx_ptr, main->so_texture_path, &main->south_tex.width, &main->south_tex.height);
     main->west_tex.img_ptr = mlx_xpm_file_to_image(main->mlx_ptr, main->we_texture_path, &main->west_tex.width, &main->west_tex.height);
+    if (!main->east_tex.img_ptr || !main->north_tex.img_ptr || !main->south_tex.img_ptr || !main->west_tex.img_ptr)
+    {
+        printer_and_free("path is not valid");
+        return ;
+    }
+    main->east_tex.data = mlx_get_data_addr(main->east_tex.img_ptr, &main->east_tex.bits_per_pixel, &main->east_tex.line_length, &main->east_tex.endian);
+    main->north_tex.data = mlx_get_data_addr(main->north_tex.img_ptr, &main->north_tex.bits_per_pixel, &main->north_tex.line_length, &main->north_tex.endian);
+    main->south_tex.data = mlx_get_data_addr(main->south_tex.img_ptr, &main->south_tex.bits_per_pixel, &main->south_tex.line_length, &main->south_tex.endian);
+    main->west_tex.data = mlx_get_data_addr(main->west_tex.img_ptr, &main->west_tex.bits_per_pixel, &main->west_tex.line_length, &main->west_tex.endian);
 
-    main->east_tex.data = mlx_get_data_addr(main->east_tex.img_ptr, &main->east_tex.bit_per_pixel, &main->east_tex.line_length, &main->east_tex.endian);
-    main->north_tex.data = mlx_get_data_addr(main->north_tex.img_ptr, &main->north_tex.bit_per_pixel, &main->north_tex.line_length, &main->north_tex.endian);
-    main->south_tex.data = mlx_get_data_addr(main->south_tex.img_ptr, &main->south_tex.bit_per_pixel, &main->south_tex.line_length, &main->south_tex.endian);
-    main->west_tex.data = mlx_get_data_addr(main->west_tex.img_ptr, &main->west_tex.bit_per_pixel, &main->west_tex.line_length, &main->west_tex.endian);
 }
 
 
@@ -57,7 +62,7 @@ int get_texture_pixel_color(t_texture *texture, int x, int y)
     int blue_byte;
 
     y_offset = y * texture->line_length;
-    x_offset = x * (texture->bit_per_pixel / 8);
+    x_offset = x * (texture->bits_per_pixel / 8);
     final_addr_index = y_offset + x_offset;
 
     if(texture->endian == 0)
@@ -72,7 +77,7 @@ int get_texture_pixel_color(t_texture *texture, int x, int y)
         green_byte = texture->data[final_addr_index + 1];
         blue_byte = texture->data[final_addr_index + 2];
     }
-    final_color = (blue_byte << 16) | (green_byte << 8) | red_byte;
+    final_color = (red_byte << 16) | (green_byte << 8) | blue_byte;
     return(final_color);
 }
 
@@ -87,6 +92,25 @@ void paint_line(t_control *main, int x, int y_start, int y_end, int color)
 
     while(y < y_end)
     {
+        pixel_on_img(main, x, y, color);
+        y++;
+    }
+}
+
+void paint_texture_line(t_control *main, int x, int draw_start, int draw_end, t_texture *tex)
+{
+    int y;
+    int tex_y;
+    int color;
+
+    y = draw_start;
+    if (y < 0)
+        y = 0;
+    while (y < draw_end && y < HEIGHT)
+    {
+        tex_y = (int)main->texPos & (64 - 1); 
+        main->texPos += main->steP;
+        color = get_texture_pixel_color(tex, main->texx, tex_y);
         pixel_on_img(main, x, y, color);
         y++;
     }

@@ -1,9 +1,5 @@
 #include "cub3d.h"
 
-/**
- trims leading whitespace from a string.
- it returns a pointer to the first non-space character.
- */
 char	*trim_leading_spaces(char *line)
 {
 	if (!line)
@@ -13,9 +9,6 @@ char	*trim_leading_spaces(char *line)
 	return (line);
 }
 
-/**
-	Checks if a line is empty or contains only whitespace.
- */
 int	is_empty_line(char *line)
 {
 	char	*trimmed_line;
@@ -26,10 +19,6 @@ int	is_empty_line(char *line)
 	return (0);
 }
 
-/*
-	Checks if a line looks like a map line (starts with '1', '0', or ' ').
-	a line with spaces then '1' is a map line.
- */
 int	is_map_line(char *line)
 {
 	char	*trimmed_line;
@@ -37,16 +26,11 @@ int	is_map_line(char *line)
 	trimmed_line = trim_leading_spaces(line);
 	if (*trimmed_line == '1' || *trimmed_line == '0')
 		return (1);
-	// Allow lines that start with spaces (part of map)
 	if (*line == ' ') 
 		return (1);
 	return (0);
 }
 
-/*
- 	Parses and stores a texture path.
-	Replaces logic from validit_texture.
- */
 static void	parse_texture(t_control *main, char *line, char **storage)
 {
 	char	*path;
@@ -55,7 +39,7 @@ static void	parse_texture(t_control *main, char *line, char **storage)
 	if (*storage != NULL)
 		printer_and_free("Duplicate texture element found");
 	
-	path = trim_leading_spaces(line + 2); // Skip NO, SO...
+	path = trim_leading_spaces(line + 2);
 	path = trim_leading_spaces(path);
 	
 	if (!path || *path == '\n' || *path == '\0')
@@ -68,34 +52,43 @@ static void	parse_texture(t_control *main, char *line, char **storage)
 	validit_filename(*storage, "xpm");
 }
 
-/**
-	Parses and stores an F/C color.
-	Replaces logic from validit_color.
- */
-static void	parse_color(t_control *main, char *line, int *storage)
+static void free_split(char **split)
 {
-	//char	**rgb_parts;
-	int	r;
-	int g;
-	int b;
-	//int		i;
-    (void)main;
-	
-	if (*storage != -1)
-		printer_and_free("Duplicate color element found");
-
-	line = trim_leading_spaces(line + 1); // Skip "F" or "C"
-	line = trim_leading_spaces(line);
-	//char *rgb_string = line;
-	r = 100;
-	g = 100;
-	b = 100;
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		printer_and_free("Color value out of range (0-255)");
-	*storage = (r << 16) + (g << 8) + b; // Combine into a single int
+    int i = 0;
+    while (split[i])
+    {
+        free(split[i]);
+        i++;
+    }
+    free(split);
 }
 
-	//Parses a single element line and stores it in t_control.
+static void parse_color(t_control *main, char *line, int *storage)
+{
+    char	**colors;
+    int		r;
+	int		g;
+	int		b;
+
+	(void)main;
+    if (*storage != -1)
+        printer_and_free("Duplicate color element found");
+    line = trim_leading_spaces(line + 1);
+    colors = ft_split(line, ',');
+    if (!colors || !colors[0] || !colors[1] || !colors[2])
+    {
+        free_split(colors);
+        printer_and_free("Invalid color format (missing values)");
+    }
+    r = ft_atoi(colors[0]);
+    g = ft_atoi(colors[1]);
+    b = ft_atoi(colors[2]);
+    free_split(colors);
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+        printer_and_free("Color value out of range (0-255)");
+    *storage = (r << 16) | (g << 8) | b;
+}
+
 static void	parse_and_store_element(char *line, t_control *main)
 {
 	char *trimmed_line;
@@ -121,9 +114,6 @@ static void	parse_and_store_element(char *line, t_control *main)
 }
 
 
-/**
-	initializes parser state variables in t_control.
- */
 static void	init_parser_state(t_control *main)
 {
 	main->no_texture_path = NULL;
@@ -136,10 +126,6 @@ static void	init_parser_state(t_control *main)
 	main->map = NULL;
 }
 
-/**
- * reads the .cub file, parses elements, and builds the map list.
- * this function replaces change_map_to_data.
- */
 void	read_and_parse_file(char *file_name)
 {
 	int			fd;
@@ -159,24 +145,23 @@ void	read_and_parse_file(char *file_name)
 	{
 		if (is_empty_line(line))
 		{
-			if (map_started) // Empty lines inside or after the map are an error
+			if (map_started)
 				printer_and_free("Empty line in or after map");
 			free(line);
 		}
 		else if (is_map_line(line))
 		{
-			if (main->elements_found < 6) // All 6 must be found first
+			if (main->elements_found < 6)
 				printer_and_free("Map line found before all 6 elements");
 			map_started = 1;
-			// ONLY map lines are added to the list
 			add_node(strip_newline(line)); 
 		}
-		else // If it's not empty and not a map, it must be an element
+		else
 		{
 			if (map_started)
 				printer_and_free("Element found after map started");
 			parse_and_store_element(line, main);
-			free(line); // We processed it, so we free it
+			free(line);
 		}
 		line = get_next_line(fd);
 	}

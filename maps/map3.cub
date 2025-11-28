@@ -1,10 +1,10 @@
-F 164,169,20
-C 153,204,255
+F 220,20,60
+C 0,191,255
 
-NO textures/simonkraft/wet_sponge.xpm
-SO textures/simonkraft/wet_sponge.xpm
-WE textures/simonkraft/wet_sponge.xpm
-EA textures/simonkraft/wet_sponge.xpm
+NO /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
+SO /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
+WE /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
+EA /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
 
 
 1111111111111111111111111111111111111111111111111111111111

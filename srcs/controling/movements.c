@@ -2,7 +2,7 @@
 
 
 #define MOVE_SPEED 0.05
-#define ROT_SPEED 0.05
+#define ROT_SPEED 0.04
 
 void move_player_forward(t_control *main)
 {
@@ -14,8 +14,8 @@ void move_player_forward(t_control *main)
     x_step = main->dir.x * MOVE_SPEED;
     y_step = main->dir.y * MOVE_SPEED;
 
-    new_x = main->dir.x + x_step;
-    new_y = main->dir.y + y_step;
+    new_x = main->player.x + x_step;
+    new_y = main->player.y + y_step;
 
     if(main->map_grid[(int)main->player.y][(int)new_x] != '1')
     {
