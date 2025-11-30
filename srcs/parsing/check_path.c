@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_path.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/30 12:10:59 by abjellal          #+#    #+#             */
+/*   Updated: 2025/11/30 12:10:59 by abjellal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	*strip_newline(char *line)
@@ -26,12 +38,19 @@ static void	flood_fill(t_flood *f, int x, int y)
 		printer_and_free("Map is not enclosed by walls");
 	}
 	if (f->map[y][x] == '1' || f->map[y][x] == 'V')
-		return;
+		return ;
 	f->map[y][x] = 'V';
 	flood_fill(f, x + 1, y);
 	flood_fill(f, x - 1, y);
 	flood_fill(f, x, y + 1);
 	flood_fill(f, x, y - 1);
+}
+
+static void init_map(t_map **tmp_map, int height, t_flood flood)
+{
+	tmp_map[height] = NULL;
+	flood.map = tmp_map;
+	flood.height = height;
 }
 
 int	check_map_enclosure(t_control *main)
@@ -53,13 +72,14 @@ int	check_map_enclosure(t_control *main)
 	{
 		tmp_map[i] = ft_strdup(main->map_grid[i]);
 		if (!tmp_map[i])
-			printer_and_free("Malloc failed for flood fill row");
+			printer_and_free("Malloc failed for flood fill");
 		add_m_node(tmp_map[i]);
 		i++;
 	}
-	tmp_map[height] = NULL;
-	flood.map = tmp_map;
-	flood.height = height;
+	init_map(tmp_map, height, flood);
+	// tmp_map[height] = NULL;
+	// flood.map = tmp_map;
+	// flood.height = height;
 	flood_fill(&flood, (int)main->player.x, (int)main->player.y);
 	return (1);
 }

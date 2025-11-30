@@ -4,9 +4,14 @@
 #define BUFFER_SIZE 10
 #define W_WIDTH 1920
 #define W_HIGHT 1080
+#define textureWidth 64
+#define textureHeight 64
 
 #define WIDTH 1920
 #define HEIGHT 1080
+
+#define MOVE_SPEED 0.05
+#define ROT_SPEED 0.04
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -203,5 +208,16 @@ void		pixel_on_img(t_control *main, int x, int y, int color);
 void		paint_texture_line(t_control *main, int x, int draw_start, int draw_end, t_texture *tex);
 void		mlx(t_control *main_control);
 void		parsing(t_control *main_control, char av[]);
+void		change_map_to_data(char *file_nmae);
+void		validit_texture_and_color();
+void		clean_map_list(t_control *main);
+void	destroy_images(t_control *main);
+void	cleanup_game(t_control *control);
+int	close_game(t_control *control);
+void rotate_player(t_control *main, int direction);
+void move_player_left(t_control *main);
+void move_player_right(t_control *main);
+void move_player_backward(t_control *main);
+void move_player_forward(t_control *main);
 
 #endif

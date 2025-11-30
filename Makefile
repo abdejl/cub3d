@@ -9,7 +9,6 @@ SRCS =	srcs/main.c \
 		srcs/parsing.c\
 		srcs/mlx.c\
 		srcs/parsing/parse_map.c \
-		srcs/parsing/parse_scene.c \
 		srcs/parsing/validation.c \
 		srcs/parsing/parse_utils.c \
 		srcs/parsing/check_path.c \
@@ -17,6 +16,7 @@ SRCS =	srcs/main.c \
 		srcs/rendering/raycasting_utils.c \
 		srcs/rendering/textures.c \
 		srcs/controling/controls.c\
+		srcs/controling/cleanup.c\
 		srcs/controling/movements.c\
 		srcs/utils/error.c \
 		srcs/utils/free.c \

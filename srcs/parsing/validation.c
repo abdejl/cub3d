@@ -28,8 +28,8 @@ void	validate_map_characters(t_control *main)
 				printer_and_free("Invalid character found in map");
 			if (is_player_char(main->map_grid[y][x]))
 			{
-				main->player.x = x;
-				main->player.y = y;
+				main->player.x = x + 0.5;
+				main->player.y = y + 0.5;
 				main->player.direction = main->map_grid[y][x];
 				player_count++;
 			}
