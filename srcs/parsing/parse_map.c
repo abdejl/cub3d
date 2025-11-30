@@ -271,7 +271,7 @@ void	validit_texture_and_color()
 					if(e > 1)
 						printer_and_free("Invalid texture format");
 				}
-				main->texture[l] = ft_strdup(s + copy_i);
+				// main->texture[l] = ft_strdup(s + copy_i);
 				l++;
 			}
 			else

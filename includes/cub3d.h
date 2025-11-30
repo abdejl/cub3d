@@ -4,6 +4,7 @@
 #define BUFFER_SIZE 10
 #define W_WIDTH 1920
 #define W_HIGHT 1080
+
 #define textureWidth 64
 #define textureHeight 64
 
@@ -125,7 +126,7 @@ typedef struct s_control
 	t_node	*node;
 	t_map	*map;
 	t_color		color;
-	char		*texture[4];
+	// char		*texture[4];
 	t_dir			dir;
 	t_plane			plane;
 	double			camerax;
