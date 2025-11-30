@@ -18,6 +18,7 @@ SRCS =	srcs/main.c \
 		srcs/controling/controls.c\
 		srcs/controling/cleanup.c\
 		srcs/controling/movements.c\
+		srcs/controling/movements_utils.c\
 		srcs/utils/error.c \
 		srcs/utils/free.c \
 		srcs/utils/get_next_line.c\
