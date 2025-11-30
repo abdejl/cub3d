@@ -3,8 +3,8 @@
 
 static void	make_ray_position(t_control *main_control)
 {
-	main_control->Map.x = (double)((int)main_control->player.x);
-	main_control->Map.y = (double)((int)main_control->player.y);
+	main_control->Map.x = ((int)main_control->player.x);
+	main_control->Map.y = ((int)main_control->player.y);
 }
 
 static void	calculate_delta_distance(t_control *main_control) // if raydir.y/x == 0 !!!!!
@@ -53,18 +53,20 @@ void	calculate_ray_to_wall(t_control *main_control)
 	i = 0;
 	while(i < WIDTH)
 	{
-		main_control->camerax = (2.0 * i) / ((double)W_WIDTH - 1.0);
+		main_control->camerax = 2.0 * i / (double)WIDTH - 1.0;
 		calculate_ray_direction(main_control);
 				//  DDA to find wall
 		make_ray_position(main_control);
 		calculate_delta_distance(main_control);
 		make_step(main_control);
 		make_side_distance(main_control);
-		x = (int)main_control->player.x;
-		y = (int)main_control->player.y;
-        
+        x = (int)main_control->Map.x;
+		y = (int)main_control->Map.y;
 		while(main_control->map_grid[y][x] != '1')
 		{
+
+			if (x < 0 || x >= 53 || y < 0 || y >= 33) 
+				break;
 			if(main_control->side_dist.x < main_control->side_dist.y)
 			{
 				x += main_control->step.x;
@@ -82,6 +84,9 @@ void	calculate_ray_to_wall(t_control *main_control)
 			main_control->perpWallDist = (main_control->side_dist.x - main_control->delta_dist.x);
 		else
 			main_control->perpWallDist = (main_control->side_dist.y - main_control->delta_dist.y);
+			// Add safety check:
+		if (main_control->perpWallDist <= 0.0)
+    		main_control->perpWallDist = 0.1;  // Small safe value`
 		main_control->lineHeight = W_HIGHT / main_control->perpWallDist;
 		main_control->drawstart = (W_HIGHT/ 2) -  (main_control->lineHeight / 2);
 		if(main_control->drawstart < 0)

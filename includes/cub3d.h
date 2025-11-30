@@ -2,7 +2,7 @@
 #define CUB3D_H
 
 #define BUFFER_SIZE 10
-#define W_WIDTH 1920
+#define W_WIDTH 1080
 #define W_HIGHT 1080
 
 #define textureWidth 64
