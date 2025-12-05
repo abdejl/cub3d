@@ -1,10 +1,10 @@
 F 64,64,64
 C 0,191,255
 
-NO /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
-SO /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
-WE /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
-EA /home/abjellal/Videos/cub3d/xpm_files/wall.xpm
+NO ./xpm_files/wall.xpm
+SO ./xpm_files/wall.xpm
+WE ./xpm_files/wall.xpm
+EA ./xpm_files/wall.xpm
 
 1111111111111111111111111
 1000000000110000000000001

@@ -1,48 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/04 15:13:53 by abjellal          #+#    #+#             */
+/*   Updated: 2025/12/04 15:13:53 by abjellal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-char	*ft_strdup(const char *s)
-{
-	char	*str;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (s[i])
-		i++;
-	str = (char *)malloc(i + 1);
-	if (!str)
-		return (NULL);
-	j = 0;
-	while (s[j])
-	{
-		str[j] = s[j];
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
-}
-
-
-int	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	int		src_len;
-	size_t	i;
-
-	i = 0;
-	src_len = ft_strlen(src);
-	if (size == 0)
-	{
-		return (src_len);
-	}
-	while (src[i] != '\0' && i < size - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (src_len);
-}
-
 
 static void	get_map_dimensions(t_map *map_list, int *height, int *width)
 {
@@ -68,6 +36,7 @@ void	create_map_grid(t_control *main)
 	int		width;
 	int		y;
 	t_map	*current_node;
+
 	get_map_dimensions(main->map, &height, &width);
 	main->map_grid = malloc(sizeof(char *) * (height + 1));
 	if (!main->map_grid)

@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 15:11:52 by abjellal          #+#    #+#             */
-/*   Updated: 2025/12/05 15:13:30 by abjellal         ###   ########.fr       */
+/*   Created: 2025/12/04 15:13:35 by abjellal          #+#    #+#             */
+/*   Updated: 2025/12/04 15:13:36 by abjellal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	parsing(t_control *main_control, char av[])
+char	*ft_strdup(const char *s)
 {
-	validit_filename(av, "cub");
-	change_map_to_data(av);
-	validit_texture_and_color();
-	clean_map_list(main_control);
-	create_map_grid(main_control);
-	validate_map_characters(main_control);
-	validate_map_enclosure(main_control);
-	make_dir(main_control);
-	make_plane(main_control);
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (s[i])
+		i++;
+	str = (char *)malloc(i + 1);
+	if (!str)
+		return (NULL);
+	j = 0;
+	while (s[j])
+	{
+		str[j] = s[j];
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
 }

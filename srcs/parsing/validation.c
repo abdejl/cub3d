@@ -11,6 +11,13 @@ static int	is_player_char(char c)
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
+void init_player(t_control *main, int x, int y)
+{
+	main->player.x = x + 0.5;
+	main->player.y = y + 0.5;
+	main->player.direction = main->map_grid[y][x];
+}
+
 void	validate_map_characters(t_control *main)
 {
 	int	x;
@@ -28,9 +35,7 @@ void	validate_map_characters(t_control *main)
 				printer_and_free("Invalid character found in map");
 			if (is_player_char(main->map_grid[y][x]))
 			{
-				main->player.x = x + 0.5;
-				main->player.y = y + 0.5;
-				main->player.direction = main->map_grid[y][x];
+				init_player(main, x, y);
 				player_count++;
 			}
 			x++;

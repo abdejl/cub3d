@@ -46,12 +46,12 @@ static void	flood_fill(t_flood *f, int x, int y)
 	flood_fill(f, x, y - 1);
 }
 
-// static void init_map(t_map **tmp_map, int height, t_flood flood)
-// {
-// 	tmp_map[height] = NULL;
-// 	flood.map = tmp_map;
-// 	flood.height = height;
-// }
+static void	init_map(char **tmp_map, int height, t_flood *flood)
+{
+	tmp_map[height] = NULL;
+	flood->map = tmp_map;
+	flood->height = height;
+}
 
 int	check_map_enclosure(t_control *main)
 {
@@ -76,10 +76,7 @@ int	check_map_enclosure(t_control *main)
 		add_m_node(tmp_map[i]);
 		i++;
 	}
-	//init_map(tmp_map, height, flood);
-	tmp_map[height] = NULL;
-	flood.map = tmp_map;
-	flood.height = height;
+	init_map(tmp_map, height, &flood);
 	flood_fill(&flood, (int)main->player.x, (int)main->player.y);
 	return (1);
 }

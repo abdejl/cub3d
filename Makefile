@@ -15,6 +15,7 @@ SRCS =	srcs/main.c \
 		srcs/rendering/raycasting.c \
 		srcs/rendering/raycasting_utils.c \
 		srcs/rendering/textures.c \
+		srcs/rendering/textures_utils.c\
 		srcs/controling/controls.c\
 		srcs/controling/cleanup.c\
 		srcs/controling/movements.c\

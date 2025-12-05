@@ -1,117 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/04 15:18:16 by abjellal          #+#    #+#             */
+/*   Updated: 2025/12/05 15:08:23 by abjellal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void load_texture(t_control *main)
+static void	little_endian_poi(t_control *main, int index, int color)
 {
-
-    main->east_tex.img_ptr = mlx_xpm_file_to_image(main->mlx_ptr, main->ea_texture_path, &main->east_tex.width, &main->east_tex.height);
-    main->north_tex.img_ptr = mlx_xpm_file_to_image(main->mlx_ptr, main->no_texture_path, &main->north_tex.width, &main->north_tex.height);
-    main->south_tex.img_ptr = mlx_xpm_file_to_image(main->mlx_ptr, main->so_texture_path, &main->south_tex.width, &main->south_tex.height);
-    main->west_tex.img_ptr = mlx_xpm_file_to_image(main->mlx_ptr, main->we_texture_path, &main->west_tex.width, &main->west_tex.height);
-    if (!main->east_tex.img_ptr || !main->north_tex.img_ptr || !main->south_tex.img_ptr || !main->west_tex.img_ptr)
-    {
-        printer_and_free("path is not valid");
-        return ;
-    }
-    main->east_tex.data = mlx_get_data_addr(main->east_tex.img_ptr, &main->east_tex.bits_per_pixel, &main->east_tex.line_length, &main->east_tex.endian);
-    main->north_tex.data = mlx_get_data_addr(main->north_tex.img_ptr, &main->north_tex.bits_per_pixel, &main->north_tex.line_length, &main->north_tex.endian);
-    main->south_tex.data = mlx_get_data_addr(main->south_tex.img_ptr, &main->south_tex.bits_per_pixel, &main->south_tex.line_length, &main->south_tex.endian);
-    main->west_tex.data = mlx_get_data_addr(main->west_tex.img_ptr, &main->west_tex.bits_per_pixel, &main->west_tex.line_length, &main->west_tex.endian);
-
+	main->data[index] = color & 0xFF;
+	main->data[index + 1] = (color >> 8) & 0xFF;
+	main->data[index + 2] = (color >> 16) & 0xFF;
 }
 
-
-void pixel_on_img(t_control *main, int x, int y, int color)
+static void	big_endian_poi(t_control *main, int index, int color)
 {
-    int y_offset;
-    int x_offset;
-    int final_addr_index;
-    int red_byte;
-    int green_byte;
-    int blue_byte;
-
-    y_offset = y * main->line_length;
-    x_offset = x * (main->bits_per_pixel / 8);
-    final_addr_index = y_offset + x_offset;
-
-    red_byte = (color >> 16) & 0xFF;
-    green_byte = (color >> 8) & 0xFF;
-    blue_byte = color & 0xFF;
-
-    if(main->endian == 0)
-    {
-        main->data[final_addr_index] = blue_byte;
-        main->data[final_addr_index + 1] = green_byte;
-        main->data[final_addr_index + 2] = red_byte;
-    }
-    if(main->endian == 1)
-    {
-        main->data[final_addr_index] = red_byte;
-        main->data[final_addr_index + 1] = green_byte;
-        main->data[final_addr_index + 2] = blue_byte;
-    }
+	main->data[index] = (color >> 16) & 0xFF;
+	main->data[index + 1] = (color >> 8) & 0xFF;
+	main->data[index + 2] = color & 0xFF;
 }
 
-int get_texture_pixel_color(t_texture *texture, int x, int y)
+void	pixel_on_img(t_control *main, int x, int y, int color)
 {
-    int y_offset;
-    int x_offset;
-    int final_addr_index;
-    int final_color;
-    int red_byte;
-    int green_byte;
-    int blue_byte;
+	int	index;
 
-    y_offset = y * texture->line_length;
-    x_offset = x * (texture->bits_per_pixel / 8);
-    final_addr_index = y_offset + x_offset;
-
-    if(texture->endian == 0)
-    {
-        blue_byte = texture->data[final_addr_index];
-        green_byte = texture->data[final_addr_index + 1];
-        red_byte = texture->data[final_addr_index + 2];
-    }
-    if(texture->endian == 1)
-    {
-        red_byte = texture->data[final_addr_index];
-        green_byte = texture->data[final_addr_index + 1];
-        blue_byte = texture->data[final_addr_index + 2];
-    }
-    final_color = (red_byte << 16) | (green_byte << 8) | blue_byte;
-    return(final_color);
+	index = (y * main->line_length) + (x * (main->bits_per_pixel / 8));
+	if (main->endian == 0)
+		little_endian_poi(main, index, color);
+	else
+		big_endian_poi(main, index, color);
 }
 
-void paint_line(t_control *main, int x, int y_start, int y_end, int color)
+void	paint_line(t_control *main, int y_start, int y_end, int color)
 {
-    int y;
-    if(y_start < 0)
-        y_start = 0;
-    if(y_end > HEIGHT)
-        y_end = HEIGHT;
-    y = y_start;
+	int	y;
 
-    while(y < y_end)
-    {
-        pixel_on_img(main, x, y, color);
-        y++;
-    }
+	if (y_start < 0)
+		y_start = 0;
+	if (y_end > HEIGHT)
+		y_end = HEIGHT;
+	y = y_start;
+	while (y < y_end)
+	{
+		pixel_on_img(main, main->current_x, y, color);
+		y++;
+	}
 }
 
-void paint_texture_line(t_control *main, int x, int draw_start, int draw_end, t_texture *tex)
+void	paint_texture_line(t_control *main, t_texture *tex)
 {
-    int y;
-    int tex_y;
-    int color;
+	int	y;
+	int	tex_y;
+	int	color;
 
-    y = draw_start;
-    if (y < 0)
-        y = 0;
-    while (y < draw_end && y < HEIGHT)
-    {
-        tex_y = (int)main->texPos & (64 - 1); 
-        main->texPos += main->steP;
-        color = get_texture_pixel_color(tex, main->texx, tex_y);
-        pixel_on_img(main, x, y, color);
-        y++;
-    }
+	y = main->drawstart;
+	if (y < 0)
+		y = 0;
+	while (y < main->drawend && y < HEIGHT)
+	{
+		tex_y = (int)main->texPos & (64 - 1);
+		main->texPos += main->steP;
+		color = get_texture_pixel_color(tex, main->texx, tex_y);
+		pixel_on_img(main, main->current_x, y, color);
+		y++;
+	}
 }

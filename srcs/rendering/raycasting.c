@@ -53,6 +53,7 @@ void	calculate_ray_to_wall(t_control *main_control)
 	i = 0;
 	while(i < WIDTH)
 	{
+		main_control->current_x = i;
 		main_control->camerax = 2.0 * i / (double)WIDTH - 1.0;
 		calculate_ray_direction(main_control);
 				//  DDA to find wall
@@ -87,13 +88,13 @@ void	calculate_ray_to_wall(t_control *main_control)
 			// Add safety check:
 		if (main_control->perpWallDist <= 0.0)
     		main_control->perpWallDist = 0.1;  // Small safe value`
-		main_control->lineHeight = W_HIGHT / main_control->perpWallDist;
-		main_control->drawstart = (W_HIGHT/ 2) -  (main_control->lineHeight / 2);
+		main_control->lineHeight = HEIGHT / main_control->perpWallDist;
+		main_control->drawstart = (HEIGHT/ 2) -  (main_control->lineHeight / 2);
 		if(main_control->drawstart < 0)
 			main_control->drawstart = 0;
-		main_control->drawend = (W_HIGHT/ 2) +  (main_control->lineHeight / 2);
-		if(main_control->drawend >= W_HIGHT)
-			main_control->drawend = W_HIGHT - 1;
+		main_control->drawend = (HEIGHT/ 2) +  (main_control->lineHeight / 2);
+		if(main_control->drawend >= HEIGHT)
+			main_control->drawend = HEIGHT - 1;
 		if(side == 0)
 			main_control->wallX = main_control->player.y + main_control->perpWallDist * main_control->raydir.y;
 		else
@@ -103,25 +104,24 @@ void	calculate_ray_to_wall(t_control *main_control)
 		if ((side == 0 && main_control->raydir.x > 0) || (side == 1 && main_control->raydir.y < 0))
     		main_control->texx = textureWidth - main_control->texx - 1;
 		main_control->steP = (double) ((double) textureHeight / (double) main_control->lineHeight);
-		main_control->texPos = (main_control->drawstart - W_HIGHT / 2 + main_control->lineHeight / 2) * main_control->steP;
-
+		main_control->texPos = (main_control->drawstart - HEIGHT / 2 + main_control->lineHeight / 2) * main_control->steP;
 
 		//part diali li zedt!!!!
-		paint_line(main_control, i, 0, main_control->drawstart, main_control->ceiling_color);
-		paint_line(main_control, i, main_control->drawend, HEIGHT, main_control->floor_color);
+		paint_line(main_control, 0, main_control->drawstart, main_control->ceiling_color);
+		paint_line(main_control, main_control->drawend, HEIGHT, main_control->floor_color);
 		if (side == 0) 
 		{
     		if (main_control->raydir.x > 0)
-        		paint_texture_line(main_control, i, main_control->drawstart, main_control->drawend, &main_control->east_tex);
+        		paint_texture_line(main_control, &main_control->east_tex);
     		else
-        		paint_texture_line(main_control, i, main_control->drawstart, main_control->drawend, &main_control->west_tex);
+        		paint_texture_line(main_control, &main_control->west_tex);
 		}
 		else
 		{
     		if (main_control->raydir.y > 0)
-        		paint_texture_line(main_control, i, main_control->drawstart, main_control->drawend, &main_control->south_tex);
+        		paint_texture_line(main_control, &main_control->south_tex);
     		else
-        		paint_texture_line(main_control, i, main_control->drawstart, main_control->drawend, &main_control->north_tex);
+        		paint_texture_line(main_control, &main_control->north_tex);
 		}
 		i++;
 	}

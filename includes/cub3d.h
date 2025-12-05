@@ -2,8 +2,6 @@
 #define CUB3D_H
 
 #define BUFFER_SIZE 10
-#define W_WIDTH 1080
-#define W_HIGHT 1080
 
 #define textureWidth 64
 #define textureHeight 64
@@ -11,7 +9,7 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 
-#define MOVE_SPEED 0.05
+#define MOVE_SPEED 0.06
 #define ROT_SPEED 0.04
 
 #include <stdio.h>
@@ -21,6 +19,15 @@
 #include <limits.h>
 #include <math.h>
 #include "../mlx_linux/mlx.h"
+
+typedef struct s_move
+{
+	double	x_step;
+	double	y_step;
+	double	new_x;
+	double	new_y;
+	double buffer;
+} t_move;
 
 typedef struct s_dir
 {
@@ -141,6 +148,7 @@ typedef struct s_control
 	t_texture east_tex;
 	int *width;
 	int *height;
+	int current_x;
 
 	char	*no_texture_path;
 	char	*so_texture_path;
@@ -195,7 +203,6 @@ void		validate_map_characters(t_control *main);
 void		validate_map_enclosure(t_control *main);
 char		*strip_newline(char *line);
 void		create_map_grid(t_control *main);
-void		read_and_parse_file(char *file_name);
 void		calculate_ray_to_wall(t_control *main_control);
 void		make_dir(t_control *main_control);
 void		make_plane(t_control *main_control);
@@ -203,22 +210,22 @@ void		calculate_ray_direction(t_control *main_control);
 void		setup_hooks(t_control *control);
 void		update_player_movement(t_control *main);
 void		load_texture(t_control *main);
-void		paint_line(t_control *main, int x, int y_start, int y_end, int color);
+void		paint_line(t_control *main, int y_start, int y_end, int color);
 int			get_texture_pixel_color(t_texture *texture, int x, int y);
 void		pixel_on_img(t_control *main, int x, int y, int color);
-void		paint_texture_line(t_control *main, int x, int draw_start, int draw_end, t_texture *tex);
+void    paint_texture_line(t_control *main, t_texture *tex);
 void		mlx(t_control *main_control);
 void		parsing(t_control *main_control, char av[]);
 void		change_map_to_data(char *file_nmae);
 void		validit_texture_and_color();
 void		clean_map_list(t_control *main);
-void	destroy_images(t_control *main);
-void	cleanup_game(t_control *control);
-int	close_game(t_control *control);
-void rotate_player(t_control *main, int direction);
-void move_player_left(t_control *main);
-void move_player_right(t_control *main);
-void move_player_backward(t_control *main);
-void move_player_forward(t_control *main);
+void		destroy_images(t_control *main);
+void		cleanup_game(t_control *control);
+int			close_game(t_control *control);
+void		rotate_player(t_control *main, int direction);
+void		move_player_left(t_control *main);
+void		move_player_right(t_control *main);
+void		move_player_backward(t_control *main);
+void		move_player_forward(t_control *main);
 
 #endif

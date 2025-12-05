@@ -6,7 +6,7 @@
 /*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 12:01:39 by abjellal          #+#    #+#             */
-/*   Updated: 2025/11/30 12:10:06 by abjellal         ###   ########.fr       */
+/*   Updated: 2025/12/04 14:54:30 by abjellal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,85 +14,113 @@
 
 void	move_player_forward(t_control *main)
 {
-	double	x_step;
-	double	y_step;
-	double	new_x;
-	double	new_y;
+	t_move	move;
 
-	x_step = main->dir.x * MOVE_SPEED;
-	y_step = main->dir.y * MOVE_SPEED;
-	new_x = main->player.x + x_step;
-	new_y = main->player.y + y_step;
-	if (main->map_grid[(int)main->player.y][(int)new_x] != '1')
+	move.x_step = main->dir.x * MOVE_SPEED;
+	move.y_step = main->dir.y * MOVE_SPEED;
+	move.new_x = main->player.x + move.x_step;
+	move.new_y = main->player.y + move.y_step;
+	if (move.x_step > 0)
+		move.buffer = 0.2;
+	else
+		move.buffer = -0.2;
+	if (main->map_grid[(int)main->player.y][(int)
+		(move.new_x + move.buffer)] != '1')
 	{
-		main->player.x = new_x;
+		main->player.x = move.new_x;
 	}
-	if (main->map_grid[(int)new_y][(int)main->player.x] != '1')
+	if (move.y_step > 0)
+		move.buffer = 0.2;
+	else
+		move.buffer = -0.2;
+	if (main->map_grid[(int)
+			(move.new_y + move.buffer)][(int)main->player.x] != '1')
 	{
-		main->player.y = new_y;
+		main->player.y = move.new_y;
 	}
 }
 
 void	move_player_backward(t_control *main)
 {
-	double	x_step;
-	double	y_step;
-	double	new_x;
-	double	new_y;
+	t_move	move;
 
-	x_step = main->dir.x * MOVE_SPEED;
-	y_step = main->dir.y * MOVE_SPEED;
-	new_x = main->player.x - x_step;
-	new_y = main->player.y - y_step;
-	if (main->map_grid[(int)main->player.y][(int)new_x] != '1')
+	move.x_step = main->dir.x * MOVE_SPEED;
+	move.y_step = main->dir.y * MOVE_SPEED;
+	move.new_x = main->player.x - move.x_step;
+	move.new_y = main->player.y - move.y_step;
+	if (move.new_x > main->player.x)
+		move.buffer = 0.2;
+	else
+		move.buffer = -0.2;
+	if (main->map_grid[(int)main->player.y][(int)
+		(move.new_x + move.buffer)] != '1')
 	{
-		main->player.x = new_x;
+		main->player.x = move.new_x;
 	}
-	if (main->map_grid[(int)new_y][(int)main->player.x] != '1')
+	if (move.new_y > main->player.y)
+		move.buffer = 0.2;
+	else
+		move.buffer = -0.2;
+	if (main->map_grid[(int)
+			(move.new_y + move.buffer)][(int)main->player.x] != '1')
 	{
-		main->player.y = new_y;
+		main->player.y = move.new_y;
 	}
 }
 
 void	move_player_right(t_control *main)
 {
-	double	x_step;
-	double	y_step;
-	double	new_x;
-	double	new_y;
+	t_move	move;
 
-	x_step = main->plane.x * MOVE_SPEED;
-	y_step = main->plane.y * MOVE_SPEED;
-	new_x = main->player.x + x_step;
-	new_y = main->player.y + y_step;
-	if (main->map_grid[(int)main->player.y][(int)new_x] != '1')
+	move.x_step = main->plane.x * MOVE_SPEED;
+	move.y_step = main->plane.y * MOVE_SPEED;
+	move.new_x = main->player.x + move.x_step;
+	move.new_y = main->player.y + move.y_step;
+	if (move.new_x > main->player.x)
+		move.buffer = 0.2;
+	else
+		move.buffer = -0.2;
+	if (main->map_grid[(int)main->player.y][(int)
+		(move.new_x + move.buffer)] != '1')
 	{
-		main->player.x = new_x;
+		main->player.x = move.new_x;
 	}
-	if (main->map_grid[(int)new_y][(int)main->player.x] != '1')
+	if (move.new_y > main->player.y)
+		move.buffer = 0.2;
+	else
+		move.buffer = -0.2;
+	if (main->map_grid[(int)
+			(move.new_y + move.buffer)][(int)main->player.x] != '1')
 	{
-		main->player.y = new_y;
+		main->player.y = move.new_y;
 	}
 }
 
 void	move_player_left(t_control *main)
 {
-	double	x_step;
-	double	y_step;
-	double	new_x;
-	double	new_y;
+	t_move	move;
 
-	x_step = main->plane.x * MOVE_SPEED;
-	y_step = main->plane.y * MOVE_SPEED;
-	new_x = main->player.x - x_step;
-	new_y = main->player.y - y_step;
-	if (main->map_grid[(int)main->player.y][(int)new_x] != '1')
+	move.x_step = main->plane.x * MOVE_SPEED;
+	move.y_step = main->plane.y * MOVE_SPEED;
+	move.new_x = main->player.x - move.x_step;
+	move.new_y = main->player.y - move.y_step;
+	if (move.new_x > main->player.x)
+		move.buffer = 0.2;
+	else
+		move.buffer = -0.2;
+	if (main->map_grid[(int)main->player.y][(int)
+		(move.new_x + move.buffer)] != '1')
 	{
-		main->player.x = new_x;
+		main->player.x = move.new_x;
 	}
-	if (main->map_grid[(int)new_y][(int)main->player.x] != '1')
+	if (move.new_y > main->player.y)
+		move.buffer = 0.2;
+	else
+		move.buffer = -0.2;
+	if (main->map_grid[(int)
+			(move.new_y + move.buffer)][(int)main->player.x] != '1')
 	{
-		main->player.y = new_y;
+		main->player.y = move.new_y;
 	}
 }
 
