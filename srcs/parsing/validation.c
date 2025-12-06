@@ -1,51 +1,5 @@
 #include "cub3d.h"
 
-static int	is_valid_char(char c)
-{
-	return (c == ' ' || c == '1' || c == '0' || c == 'N' || c == 'S'
-		|| c == 'E' || c == 'W');
-}
-
-static int	is_player_char(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
-void init_player(t_control *main, int x, int y)
-{
-	main->player.x = x + 0.5;
-	main->player.y = y + 0.5;
-	main->player.direction = main->map_grid[y][x];
-}
-
-void	validate_map_characters(t_control *main)
-{
-	int	x;
-	int	y;
-	int	player_count;
-
-	y = 0;
-	player_count = 0;
-	while (main->map_grid && main->map_grid[y])
-	{
-		x = 0;
-		while (main->map_grid[y][x])
-		{
-			if (!is_valid_char(main->map_grid[y][x]))
-				printer_and_free("Invalid character found in map");
-			if (is_player_char(main->map_grid[y][x]))
-			{
-				init_player(main, x, y);
-				player_count++;
-			}
-			x++;
-		}
-		y++;
-	}
-	if (player_count != 1)
-		printer_and_free("Map must contain exactly one player start position");
-}
-
 void	validit_filename(char *s, const char *sc)
 {
 	int	i;
@@ -63,4 +17,16 @@ void	validit_filename(char *s, const char *sc)
 		i++;
 	}
 		printer_and_free("Invalid name of file");
+}
+
+char	*strip_newline(char *line)
+{
+	int	len;
+
+	if (!line)
+		return (NULL);
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+	return (line);
 }

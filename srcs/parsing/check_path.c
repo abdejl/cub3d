@@ -12,18 +12,6 @@
 
 #include "cub3d.h"
 
-char	*strip_newline(char *line)
-{
-	int	len;
-
-	if (!line)
-		return (NULL);
-	len = ft_strlen(line);
-	if (len > 0 && line[len - 1] == '\n')
-		line[len - 1] = '\0';
-	return (line);
-}
-
 typedef struct s_flood
 {
 	char	**map;

@@ -12,6 +12,7 @@ SRCS =	srcs/main.c \
 		srcs/parsing/validation.c \
 		srcs/parsing/parse_utils.c \
 		srcs/parsing/check_path.c \
+		srcs/parsing/validate_map_chars.c\
 		srcs/rendering/raycasting.c \
 		srcs/rendering/raycasting_utils.c \
 		srcs/rendering/textures.c \
