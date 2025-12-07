@@ -54,5 +54,7 @@ void	create_map_grid(t_control *main)
 		y++;
 		current_node = current_node->next;
 	}
+	main->map_height = height;
+	main->map_width = width;
 	main->map_grid[height] = NULL;
 }

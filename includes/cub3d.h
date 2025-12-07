@@ -97,12 +97,7 @@ typedef struct s_texture
 } t_texture;
 
 
-typedef struct s_player
-{
-	double	x;
-	double	y;
-	char	direction;
-}	t_player;
+
 
 typedef struct s_node
 {
@@ -123,6 +118,41 @@ typedef struct s_color
 }	t_color;
 
 
+typedef struct s_ray
+{
+	double rayAngle;
+	double raydir_x;
+	double raydir_y;
+	int is_facing_down;
+	int is_facing_up;
+	int is_facing_right;
+	int is_facing_left;
+	int h_hit_x;
+	int h_hit_y;
+	int v_hit_x;
+	int v_hit_y;
+	double	first_intersection_y;
+	double	first_intersection_x;
+	double	xStep_h;
+	double	yStep_h;
+	double	xStep_v;
+	double	yStep_v;
+	double	next_h_x;
+	double	next_h_y;
+	double	next_v_x;
+	double	next_v_y;
+}	t_ray;
+
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	char	direction;
+	double	playerAngle;
+}	t_player;
+
+
 typedef struct s_control
 {
 	t_keys keys;
@@ -133,7 +163,6 @@ typedef struct s_control
 	t_node	*node;
 	t_map	*map;
 	t_color		color;
-	// char		*texture[4];
 	t_dir			dir;
 	t_plane			plane;
 	double			camerax;
@@ -166,11 +195,21 @@ typedef struct s_control
 	double  lineHeight;
     double  perpWallDist;
 
+
+
 	void	*img_ptr;
 	char	*data;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int map_height;
+	int map_width;
+	int wall_hit_x;
+	int wall_hit_y;
+	double v_distance;
+	double h_distance;
+	double	distance;
+	t_ray ray;
 }	t_control;
 
 /*--------------------FREE------------------------*/

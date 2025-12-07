@@ -30,9 +30,3 @@ void make_plane(t_control *main_control)
 	main_control->plane.x = (main_control->dir.y * -1) * planeLen;
 	main_control->plane.y = main_control->dir.x * planeLen;
 }
-
-void	calculate_ray_direction(t_control *main_control)
-{
-	main_control->raydir.x = main_control->dir.x + (main_control->plane.x * main_control->camerax);
-	main_control->raydir.y = main_control->dir.y + (main_control->plane.y * main_control->camerax);
-}
