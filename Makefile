@@ -13,8 +13,15 @@ SRCS =	srcs/main.c \
 		srcs/parsing/parse_utils.c \
 		srcs/parsing/check_path.c \
 		srcs/parsing/validate_map_chars.c\
+		srcs/parsing/validit_texture_color.c \
+		srcs/parsing/handle_texture.c \
+		srcs/parsing/handle_color.c \
+		srcs/parsing/validit_color.c \
+		srcs/parsing/validit_color_utils.c \
+		srcs/parsing/validit_texture.c \
 		srcs/rendering/raycasting.c \
 		srcs/rendering/raycasting_utils.c \
+		srcs/rendering/raycasting_utils_v2.c \
 		srcs/rendering/textures.c \
 		srcs/rendering/textures_utils.c\
 		srcs/controling/controls.c\
