@@ -16,7 +16,7 @@ typedef struct s_flood
 {
 	char	**map;
 	int		height;
-}	t_flood;
+}			t_flood;
 
 static void	flood_fill(t_flood *f, int x, int y)
 {
@@ -61,7 +61,7 @@ int	check_map_enclosure(t_control *main)
 		tmp_map[i] = ft_strdup(main->map_grid[i]);
 		if (!tmp_map[i])
 			printer_and_free("Malloc failed for flood fill");
-		add_m_node(tmp_map[i]);
+		// add_m_node(tmp_map[i]); // i add him in ft_strdup
 		i++;
 	}
 	init_map(tmp_map, height, &flood);

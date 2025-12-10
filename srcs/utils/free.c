@@ -10,6 +10,7 @@ void	free_all()
 	while (main->node != NULL)
 	{
 		prv = main->node->next;
+		free(main->node->data);
 		free(main->node);
 		main->node = prv;
 	}

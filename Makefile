@@ -32,7 +32,8 @@ SRCS =	srcs/main.c \
 		srcs/utils/free.c \
 		srcs/utils/get_next_line.c\
 		lib/libft_get_next_line.c\
-		lib/ft_split.c
+		lib/ft_split.c \
+		lib/ft_strdup.c
 
 OBJS = $(SRCS:.c=.o)
 

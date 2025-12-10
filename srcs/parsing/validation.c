@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yael-bar <yael-bar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 23:47:27 by yael-bar          #+#    #+#             */
+/*   Updated: 2025/12/10 23:47:28 by yael-bar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	validit_filename(char *s, const char *sc)
@@ -5,18 +17,18 @@ void	validit_filename(char *s, const char *sc)
 	int	i;
 
 	i = 0;
-	while(s[i] != '\0')
+	while (s[i] != '\0')
 	{
-		if(s[i] == '.' && (s[i + 1] != '\0' && s[i + 1] != '/'))
+		if (s[i] == '.' && (s[i + 1] != '\0' && s[i + 1] != '/'))
 		{
-			if((ft_strncmp(sc, s + (i + 1), 3) != 0) || s[i + 4] != '\0' )
+			if ((ft_strncmp(sc, s + (i + 1), 3) != 0) || s[i + 4] != '\0')
 				printer_and_free("Invalid name of file");
 			else
-				return;
+				return ;
 		}
 		i++;
 	}
-		printer_and_free("Invalid name of file");
+	printer_and_free("Invalid name of file");
 }
 
 char	*strip_newline(char *line)

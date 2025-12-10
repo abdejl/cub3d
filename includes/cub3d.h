@@ -9,8 +9,8 @@
 #define textureHeight 64
 #define WALL_HEIGHT_SCALE 64
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 576
+#define HEIGHT 320
 
 #define MOVE_SPEED 0.05
 #define ROT_SPEED 0.04

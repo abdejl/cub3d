@@ -84,7 +84,6 @@ void	clean_map_list(t_control *main)
 			|| is_color(curr->line, i))
 		{
 			next_node = curr->next;
-			free(curr);
 			clean_map_util(main, prev, next_node);
 			curr = next_node;
 		}

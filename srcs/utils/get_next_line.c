@@ -8,7 +8,7 @@ char 	*stock_line(int fd, char* line)
 	buffer = malloc(sizeof(char)* BUFFER_SIZE + 1);
 	if(buffer == NULL)
 		free_all();
-	add_m_node(buffer);
+	buffer[0] = '\0';
 	bytes_read = 1;
 	while(bytes_read > 0 && ft_strchr(buffer, '\n') != 1)
 	{
@@ -18,6 +18,7 @@ char 	*stock_line(int fd, char* line)
 		buffer[bytes_read] = '\0';
 		line = ft_strjoin(line, buffer);
 	}
+	free(buffer);
 	return (line);
 }
 
@@ -75,7 +76,6 @@ char  *fix_line(char *line)
 	new_line = malloc((ft_strlen(line) - size));
 	if(new_line == NULL)
 		free_all();
-	add_m_node(new_line);
 	i = 0;
 	size++;
 	while(line[size])
