@@ -9,8 +9,8 @@
 #define textureHeight 64
 #define WALL_HEIGHT_SCALE 64
 
-#define WIDTH 576
-#define HEIGHT 320
+#define WIDTH 1920
+#define HEIGHT 1080
 
 #define MOVE_SPEED 0.05
 #define ROT_SPEED 0.04
@@ -265,10 +265,10 @@ void		calculate_ray_direction(t_control *main_control);
 void		setup_hooks(t_control *control);
 void		update_player_movement(t_control *main);
 void		load_texture(t_control *main);
-void		paint_line(t_control *main, int y_start, int y_end, int color);
+void		paint_line(int x, int y_start, int y_end, int color);
 int			get_texture_pixel_color(t_texture *texture, int x, int y);
 void		pixel_on_img(t_control *main, int x, int y, int color);
-void    paint_texture_line(t_control *main, t_texture *tex);
+void		paint_texture_line(t_control *main, int x, t_texture *tex);
 void		mlx(t_control *main_control);
 void		parsing(t_control *main_control, char av[]);
 void		change_map_to_data(char *file_nmae);
@@ -283,35 +283,35 @@ void		move_player_right(t_control *main);
 void		move_player_backward(t_control *main);
 void		move_player_forward(t_control *main);
 /*--------------raycasting--------------------*/
-double	distance_between_2(double x1, double y1, double x2, double y2);
-int	map_cell_state(t_control *main, int grid_x, int grid_y);
-void	initialize_data(int i);
-void	set_facing_hit(void);
-void	find_horizontal_intersection(void);
-void	find_vertical_intersection(void);
-void	find_horizontal_wall(int x, int y);
-void	find_vertical_wall(int x, int y);
-void	draw_wall_line(int i, int side);
-void	get_wall_hit_and_distance_and_height(int *side);
-void	get_draw_start_end(t_control *main);
+double		distance_between_2(double x1, double y1, double x2, double y2);
+int			map_cell_state(t_control *main, int grid_x, int grid_y);
+void		initialize_data(int i);
+void		set_facing_hit(void);
+void		find_horizontal_intersection(void);
+void		find_vertical_intersection(void);
+void		find_horizontal_wall(int x, int y);
+void		find_vertical_wall(int x, int y);
+void		draw_wall_line(int i, int side);
+void		get_wall_hit_and_distance_and_height(int *side);
+void		get_draw_start_end(t_control *main);
 /*---------------------passing--------------------*/
-int		check_is_color(char *s, int i, char c);
-int		is_color(char *s, int i);
-void	validit_color(char *s, int *i, char c);
-int		check_is_texture(char *s, int i, char c1, char c2);
-int		is_texture(char *s, int i);
-void	validit_texture(char *s, int *i, int *f);
-void	skep_space(char *s, int *i);
+int			check_is_color(char *s, int i, char c);
+int			is_color(char *s, int i);
+void		validit_color(char *s, int *i, char c);
+int			check_is_texture(char *s, int i, char c1, char c2);
+int			is_texture(char *s, int i);
+void		validit_texture(char *s, int *i, int *f);
+void		skep_space(char *s, int *i);
 /*---------------------passing texture--------------------*/
-void	handle_n_texture(char *s, int *i, int *copy_i, t_counters *cnt);
-void	handle_so_texture(char *s, int *i, int *copy_i, t_counters *cnt);
-void	handle_w_texture(char *s, int *i, int *copy_i, t_counters *cnt);
-void	handle_e_texture(char *s, int *i, int *copy_i, t_counters *cnt);
-void	process_texture(char *s, int *i, int *copy_i, t_counters *cnt);
+void		handle_n_texture(char *s, int *i, int *copy_i, t_counters *cnt);
+void		handle_so_texture(char *s, int *i, int *copy_i, t_counters *cnt);
+void		handle_w_texture(char *s, int *i, int *copy_i, t_counters *cnt);
+void		handle_e_texture(char *s, int *i, int *copy_i, t_counters *cnt);
+void		process_texture(char *s, int *i, int *copy_i, t_counters *cnt);
 /*--------------------passing color ---------------------*/
-void	handle_f_color(char *s, int *i, t_counters *cnt);
-void	handle_c_color(char *s, int *i, t_counters *cnt);
-void	process_color(char *s, int *i, t_counters *cnt);
+void		handle_f_color(char *s, int *i, t_counters *cnt);
+void		handle_c_color(char *s, int *i, t_counters *cnt);
+void		process_color(char *s, int *i, t_counters *cnt);
 /*-----------------------------------------*/
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:18:16 by abjellal          #+#    #+#             */
-/*   Updated: 2025/12/06 11:09:27 by abjellal         ###   ########.fr       */
+/*   Updated: 2025/12/10 14:47:36 by abjellal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ void	pixel_on_img(t_control *main, int x, int y, int color)
 		big_endian_poi(main, index, color);
 }
 
-void	paint_line(t_control *main, int y_start, int y_end, int color)
+void	paint_line(int x, int y_start, int y_end, int color)
 {
-	int	y;
+	t_control	*main;
+	int			y;
 
+	main = control_memo();
 	if (y_start < 0)
 		y_start = 0;
 	if (y_end > HEIGHT)
@@ -48,12 +50,12 @@ void	paint_line(t_control *main, int y_start, int y_end, int color)
 	y = y_start;
 	while (y < y_end)
 	{
-		pixel_on_img(main, main->current_x, y, color);
+		pixel_on_img(main, x, y, color);
 		y++;
 	}
 }
 
-void	paint_texture_line(t_control *main, t_texture *tex)
+void	paint_texture_line(t_control *main, int x, t_texture *tex)
 {
 	int	y;
 	int	tex_y;
@@ -67,7 +69,7 @@ void	paint_texture_line(t_control *main, t_texture *tex)
 		tex_y = (int)main->texPos & (64 - 1);
 		main->texPos += main->steP;
 		color = get_texture_pixel_color(tex, main->texx, tex_y);
-		pixel_on_img(main, main->current_x, y, color);
+		pixel_on_img(main, x, y, color);
 		y++;
 	}
 }

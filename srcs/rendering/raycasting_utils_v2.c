@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils_v2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-bar <yael-bar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 17:53:28 by yael-bar          #+#    #+#             */
-/*   Updated: 2025/12/09 16:01:41 by yael-bar         ###   ########.fr       */
+/*   Updated: 2025/12/10 14:50:14 by abjellal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,24 +95,20 @@ void	draw_wall_line(int i, int side)
 	t_control	*main;
 
 	main = control_memo();
-	paint_line(main, i, 0, main->drawstart, main->ceiling_color);
-	paint_line(main, i, main->drawend, HEIGHT, main->floor_color);
+	paint_line(i, 0, main->drawstart, main->ceiling_color);
+	paint_line(i, main->drawend, HEIGHT, main->floor_color);
 	if (side == 0)
 	{
 		if (main->raydir.x > 0)
-			paint_texture_line(main, i, main->drawstart, main->drawend,
-				&main->east_tex);
+			paint_texture_line(main, i, &main->east_tex);
 		else
-			paint_texture_line(main, i, main->drawstart, main->drawend,
-				&main->west_tex);
+			paint_texture_line(main, i, &main->west_tex);
 	}
 	else
 	{
 		if (main->raydir.y > 0)
-			paint_texture_line(main, i, main->drawstart, main->drawend,
-				&main->south_tex);
+			paint_texture_line(main, i, &main->south_tex);
 		else
-			paint_texture_line(main, i, main->drawstart, main->drawend,
-				&main->north_tex);
+			paint_texture_line(main, i, &main->north_tex);
 	}
 }

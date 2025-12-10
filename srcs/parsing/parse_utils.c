@@ -58,3 +58,40 @@ void	create_map_grid(t_control *main)
 	main->map_width = width;
 	main->map_grid[height] = NULL;
 }
+
+void	clean_map_util(t_control *main, t_map *prev, t_map *next)
+{
+	if (prev == NULL)
+		main->map = next;
+	else
+		prev->next = next;
+}
+
+void	clean_map_list(t_control *main)
+{
+	t_map	*curr;
+	t_map	*prev;
+	t_map	*next_node;
+	int		i;
+
+	curr = main->map;
+	prev = NULL;
+	while (curr != NULL)
+	{
+		i = 0;
+		skep_space(curr->line, &i);
+		if (curr->line[i] == '\0' || is_texture(curr->line, i)
+			|| is_color(curr->line, i))
+		{
+			next_node = curr->next;
+			free(curr);
+			clean_map_util(main, prev, next_node);
+			curr = next_node;
+		}
+		else
+		{
+			prev = curr;
+			curr = curr->next;
+		}
+	}
+}
