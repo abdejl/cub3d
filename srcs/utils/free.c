@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yael-bar <yael-bar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/12 10:58:21 by yael-bar          #+#    #+#             */
+/*   Updated: 2025/12/12 10:58:22 by yael-bar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void	free_all()
+void	free_all(void)
 {
-	t_control *main;
-	t_node	*prv;
+	t_control	*main;
+	t_node		*prv;
 
 	main = control_memo();
 	prv = main->node;
@@ -19,17 +31,17 @@ void	free_all()
 
 void	add_m_node(void *data)
 {
-	t_control *main;
-	t_node	*n;
-	t_node	*temp;
+	t_control	*main;
+	t_node		*n;
+	t_node		*temp;
 
 	main = control_memo();
 	n = malloc(sizeof(t_node));
-	if(!n)
+	if (!n)
 		free_all();
 	n->next = NULL;
 	n->data = data;
-	if(main->node == NULL)
+	if (main->node == NULL)
 		main->node = n;
 	else
 	{
