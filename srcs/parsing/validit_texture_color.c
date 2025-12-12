@@ -59,7 +59,7 @@ static void	process_map_line(char *s, int *copy_i, t_counters *cnt)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		while ((s[i] == ' ' || s[i] == '\n') && s[i] != '\0')
+		while ((s[i] == ' ' || s[i] == '\n' || s[i] == '\t') && s[i] != '\0')
 			skep_space(s, &i);
 		if (s[i] == '\0')
 			break ;

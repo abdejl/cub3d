@@ -17,7 +17,7 @@ int	check_is_color(char *s, int i, char c)
 	if (s[i] == c)
 	{
 		(i)++;
-		if (s[i] != '\0' && s[i] == ' ')
+		if (s[i] != '\0' && (s[i] == ' ' || s[i] == '\t'))
 			return (1);
 	}
 	return (0);

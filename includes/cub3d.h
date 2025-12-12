@@ -9,8 +9,8 @@
 #define textureHeight 64
 #define WALL_HEIGHT_SCALE 64
 
-#define WIDTH 576
-#define HEIGHT 320
+#define WIDTH 1800
+#define HEIGHT 1600
 
 #define MOVE_SPEED 0.05
 #define ROT_SPEED 0.04
@@ -207,7 +207,7 @@ typedef struct s_control
     int     texx;
     double  steP;
     double  texPos;
-	double  lineHeight;
+	int  lineHeight;
     double  perpWallDist;
 
 

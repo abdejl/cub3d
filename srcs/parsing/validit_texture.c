@@ -44,7 +44,7 @@ void	validit_texture(char *s, int *i, int *f)
 {
 	const char	*sc = "xpm";
 
-	while (s[*i] != '\0' && (s[*i] == ' ' || s[*i] == '\n'))
+	while (s[*i] != '\0' && (s[*i] == ' ' || s[*i] == '\n' || s[*i] == '\t'))
 		skep_space(s, i);
 	*f = *i;
 	validit_filename(s + (*i), sc);

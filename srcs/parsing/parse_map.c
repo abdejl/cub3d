@@ -56,6 +56,6 @@ void	change_map_to_data(char *file_nmae)
 
 void	skep_space(char *s, int *i)
 {
-	if (s[*i] != '\0' && (s[*i] == ' ' || s[*i] == '\n'))
+	if (s[*i] != '\0' && (s[*i] == ' ' || s[*i] == '\n' || s[*i] == '\t'))
 		(*i)++;
 }
