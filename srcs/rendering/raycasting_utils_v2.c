@@ -27,8 +27,6 @@ void	initialize_data(int i)
 	main->ray.is_facing_left = 0;
 	main->ray.xStep_v = 0;
 	main->ray.yStep_h = 0;
-	main->v_distance = INFINITY;
-	main->h_distance = INFINITY;
 }
 
 void	set_facing_hit(void)

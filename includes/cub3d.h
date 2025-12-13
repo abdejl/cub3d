@@ -10,7 +10,7 @@
 #define WALL_HEIGHT_SCALE 64
 
 #define WIDTH 1800
-#define HEIGHT 1600
+#define HEIGHT 1000
 
 #define MOVE_SPEED 0.05
 #define ROT_SPEED 0.04
@@ -180,7 +180,6 @@ typedef struct s_control
 	t_color		color;
 	t_dir			dir;
 	t_plane			plane;
-	double			camerax;
 	t_raydir		raydir;
 	t_ray_position	Map;
 	t_delta_dist	delta_dist;

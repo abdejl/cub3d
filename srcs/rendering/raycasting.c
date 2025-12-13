@@ -107,8 +107,6 @@ void	calculate_ray_to_wall(t_control *main)
 	int	i;
 	int	side;
 
-	if (!main || !main->map_grid)
-		return ;
 	main->player.playerAngle = atan2(main->dir.y, main->dir.x);
 	i = 0;
 	while (i < WIDTH)
@@ -124,8 +122,9 @@ void	calculate_ray_to_wall(t_control *main)
 				&& main->raydir.y < 0))
 			main->texx = textureWidth - main->texx - 1;
 		main->steP = (double)((double)textureHeight / (double)main->lineHeight);
-		main->texPos = (main->drawstart - HEIGHT / 2 + main->lineHeight / 2)
-			* main->steP;
+		main->texPos = 0;
+		if (main->lineHeight > HEIGHT)
+			main->texPos = ((main->lineHeight - HEIGHT) / 2) * main->steP;
 		draw_wall_line(i, side);
 		i++;
 	}
