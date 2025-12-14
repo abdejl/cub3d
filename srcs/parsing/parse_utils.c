@@ -79,7 +79,8 @@ void	clean_map_list(t_control *main)
 	while (curr != NULL)
 	{
 		i = 0;
-		skep_space(curr->line, &i);
+		while(curr->line[i] == ' ' || curr->line[i] == '\t')
+			skep_space(curr->line, &i);
 		if (curr->line[i] == '\0' || is_texture(curr->line, i)
 			|| is_color(curr->line, i))
 		{

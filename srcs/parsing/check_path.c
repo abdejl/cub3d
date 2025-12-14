@@ -6,7 +6,7 @@
 /*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 12:10:59 by abjellal          #+#    #+#             */
-/*   Updated: 2025/11/30 12:10:59 by abjellal         ###   ########.fr       */
+/*   Updated: 2025/12/14 09:17:53 by abjellal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	check_map_enclosure(t_control *main)
 		tmp_map[i] = ft_strdup(main->map_grid[i]);
 		if (!tmp_map[i])
 			printer_and_free("Malloc failed for flood fill");
-		// add_m_node(tmp_map[i]); // i add him in ft_strdup
 		i++;
 	}
 	init_map(tmp_map, height, &flood);

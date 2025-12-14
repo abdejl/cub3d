@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-bar <yael-bar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 11:53:47 by abjellal          #+#    #+#             */
-/*   Updated: 2025/12/10 21:46:07 by yael-bar         ###   ########.fr       */
+/*   Updated: 2025/12/14 09:17:35 by abjellal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,11 @@ void	cleanup_game(t_control *control)
 		mlx_destroy_display(control->mlx_ptr);
 		free(control->mlx_ptr);
 	}
-	// if (control->map) i free him in free_all();
-	// 	free(control->map);
 }
 
 int	close_game(t_control *control)
 {
 	cleanup_game(control);
-	free_all(); // free my data
+	free_all();
 	return (0);
 }
