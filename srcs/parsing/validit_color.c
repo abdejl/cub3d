@@ -6,7 +6,7 @@
 /*   By: yael-bar <yael-bar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 00:43:33 by yael-bar          #+#    #+#             */
-/*   Updated: 2025/12/09 21:15:19 by yael-bar         ###   ########.fr       */
+/*   Updated: 2025/12/14 10:20:08 by yael-bar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static void	final_color_store(char c)
 	m_cnt = control_memo();
 	if (c == 'F')
 	{
-		m_cnt->floor_color = (m_cnt->color.Floor[0] << 16)
-			| (m_cnt->color.Floor[1] << 8)
-			| m_cnt->color.Floor[2];
+		m_cnt->floor_color = (m_cnt->color.floor[0] << 16)
+			| (m_cnt->color.floor[1] << 8)
+			| m_cnt->color.floor[2];
 	}
 	else
 	{
-		m_cnt->ceiling_color = (m_cnt->color.Ceiling[0] << 16)
-			| (m_cnt->color.Ceiling[1] << 8)
-			| m_cnt->color.Ceiling[2];
+		m_cnt->ceiling_color = (m_cnt->color.ceiling[0] << 16)
+			| (m_cnt->color.ceiling[1] << 8)
+			| m_cnt->color.ceiling[2];
 	}
 }
 
@@ -55,9 +55,9 @@ static void	store_color_value(char *temp, int x, char c)
 
 	m_cnt = control_memo();
 	if (c == 'F')
-		m_cnt->color.Floor[x] = ft_atoi(temp);
+		m_cnt->color.floor[x] = ft_atoi(temp);
 	else if (c == 'C')
-		m_cnt->color.Ceiling[x] = ft_atoi(temp);
+		m_cnt->color.ceiling[x] = ft_atoi(temp);
 }
 
 void	validit_color(char *s, int *i, char c)

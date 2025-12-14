@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abjellal <abjellal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-bar <yael-bar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:18:16 by abjellal          #+#    #+#             */
-/*   Updated: 2025/12/10 14:47:36 by abjellal         ###   ########.fr       */
+/*   Updated: 2025/12/14 10:35:57 by yael-bar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	paint_texture_line(t_control *main, int x, t_texture *tex)
 		y = 0;
 	while (y < main->drawend && y < HEIGHT)
 	{
-		tex_y = (int)main->texPos & (64 - 1);
-		main->texPos += main->steP;
+		tex_y = (int)main->texpos & (64 - 1);
+		main->texpos += main->step;
 		color = get_texture_pixel_color(tex, main->texx, tex_y);
 		pixel_on_img(main, x, y, color);
 		y++;
