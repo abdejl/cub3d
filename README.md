@@ -57,7 +57,7 @@ The engine works by "casting" a ray for every vertical slice of the screen (X-ax
 ---
 
 ## 📸 Preview
-*(Tip: Add a high-quality GIF or screenshot of your project here to make the README pop!)*
+![Project Preview](assets/cub3d-preview.gif)
 
 ---
 
